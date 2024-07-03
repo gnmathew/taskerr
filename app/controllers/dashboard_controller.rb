@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @projects = Project.all
+    @projects = Project.includes(:tasks)
   end
 end
