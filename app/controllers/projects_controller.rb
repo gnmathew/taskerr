@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    flash.now[:alert] = 'Project update failed'
+    flash.now[:alert] = 'Project destroyed!'
     redirect_to root_path
   end
 
