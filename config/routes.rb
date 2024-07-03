@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
-
   root 'dashboard#index'
-
-  resources :projects
+  resources :projects, except: [:index] do
+    resources :tasks
+  end
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'clients/registrations'
+  }
 end

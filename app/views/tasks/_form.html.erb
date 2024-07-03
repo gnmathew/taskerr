@@ -1,0 +1,22 @@
+<%= form_with(model: model, local: true, method: method) do |form| %>
+  <% if @project.errors.any? %>
+    <ul>
+      <% @project.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <%= form.label :importance %>
+    <%= form.text_field :importance %>
+  </div>
+  <%= form.submit %>
+<% end %>
