@@ -37,6 +37,11 @@ class ProjectsController < ApplicationController
     redirect_to root_path
   end
 
+  def move
+    @project.update(position: params[:position].to_i + 1)
+    head :ok
+  end
+
   private
 
   def set_project

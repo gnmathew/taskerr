@@ -1,2 +1,11 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div class="d-flex justify-content-center">
+  <div class="card" style="width: 18rem;">
+    <h5 class="card-header"><%= @task.name.capitalize %></h5>
+    <div class="card-body">
+      <h5 class="card-title"><%= @task.status.capitalize %></h5>
+      <p class="card-text"><%= @task.description %></p>
+      <%= link_to 'Edit', edit_project_task_path, class: "btn btn-primary me-2" %>
+      <%= link_to 'Dashboard', root_path, class: "btn btn-dark" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div data-controller="drag-drop" data-drag-drop-url="<%= project_task_path(@project, :id) %>">
+  <% @tasks.each do |task| %>
+    <div data-id="<%= task.id %>" data-drag-drop-target="item">
+      <%= task.name %>
+    </div>
+  <% end %>
+</div>

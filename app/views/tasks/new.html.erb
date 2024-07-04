@@ -1,2 +1,1 @@
-<%= render partial: 'form', locals: { model: @task, method: :put } %>
-<%= link_to 'Home', root_path %>
+<%= render partial: 'form', locals: { model: @task, method: :post, url: project_tasks_path(@project) } %>

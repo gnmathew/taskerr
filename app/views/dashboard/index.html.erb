@@ -1,45 +1,55 @@
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-  <% if user_signed_in? %>
-    <%= link_to 'Sign out', destroy_user_session_path, class: 'nav-link', data: { 'turbo-method': :delete } %>
-  <% else %>
-    <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
-  <% end %>
-  </li>
-</ul>
+<div class="text-center">
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Create Project', new_project_path, class: 'nav-link' %>
+    </li>
+    <li class="nav-item">
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out', destroy_user_session_path, class: 'nav-link', data: { 'turbo-method': :delete } %>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+<h1 class="text-center m-lg-5">My Projects</h1>
 
-<h1>My Projects</h1>
 
-<% @projects.each_with_index do |project, index| %>
-  <div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <%= button_tag class: 'accordion-button collapsed', type: 'button',
-                       data: { bs_toggle: 'collapse', bs_target: "#collapse#{index}" },
-                       aria: { expanded: 'false', controls: "collapse#{index}" }  do %>
-          <%= project.name.capitalize %>
-          <%= project.status %>
-        <% end %>
-      </h2>
-      <div id="collapse<%= index %>" class="accordion-collapse collapse"
-           data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <ul>
-            <% project.tasks.each do |task| %>
-              <li><%= link_to task.name.capitalize, project_task_path(project_id: project.id, id: task.id) %></li>
+<div class="text-center">
+  <div class="accordion accordion-flush" id="accordionFlushExample" data-controller="drag-drop">
+    <% @projects.each_with_index do |project, index| %>
+      <div class="accordion-item" data-id="<%= project.id %>" data-drag-drop-target="item">
+        <h2 class="accordion-header">
+          <%= button_tag(type: 'button',
+                         class: 'accordion-button collapsed',
+                         data: { bs_toggle: 'collapse', bs_target: "#flush-collapse#{index}" },
+                         aria: { expanded: 'false', controls: "flush-collapse#{index}" }) do %>
+            <h6 class="ms-auto"><%= project.name.capitalize %></h6>
+          <% end %>
+        </h2>
+        <div id="flush-collapse<%= index %>" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <% project.tasks.each_with_index do |task, index| %>
+              <div class="m-lg-2">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                    <%= link_to task.name.capitalize, project_task_path(project_id: project.id, id: task.id), style: 'text-decoration: none', class: "form-check-label", for: "#{index}Checkbox" %>
+                  </li>
+                </ul>
+              </div>
             <% end %>
-          </ul>
+            <%= link_to 'Add Task', new_project_task_path(project_id: project.id), style: 'text-decoration: none' %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
-<% end %>
+</div>
+
